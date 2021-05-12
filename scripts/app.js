@@ -22,25 +22,33 @@
 new Vue({
     el: "#app",
     data: {
-        filteredData: [],
+        input: "all",
         albumsList: []
     },
-    methods: {
+    computed: {
+        genereFiltered() {
+            if(this.input === "all") {
+                return this.albumsList
+            } else {
+                return this.albumsList.filter((element) => {
+                     return element.genre.toLowerCase() === this.input.toLowerCase() 
+                 })
+            }
+        },
+        
         getGeneresList() {
             const finalList = []
 
-            albumsList.forEach((element) => {
-                if(!finalList.includes(element.genre)){
+            this.albumsList.forEach((element) => {
+                if (!finalList.includes(element.genre)) {
                     finalList.push(element.genre)
                 }
             })
+            return finalList
         },
-        onSelectChange(event) {
-            const select = event.currentTarget
-            
-
-        }
     },
+    
+    
     mounted() {
         /*
         Tramite axios recuperiamo i dati del server.
@@ -55,13 +63,21 @@ new Vue({
                     "genre"
                     "year"
                 */
-                const albumsList = resp.data.response;
+                this.albumsList = resp.data.response;
 
                 /*
                     una  volta ricevuti i dati dal server, 
                     prima ancora di salvarli nella variabile di vue, 
                     posso eseguire il sort in modo da salvare poi i dati già ordinati
                 */
+                this.albumsList.sort(function (indice1, indice2) {
+                    return indice1.year - indice2.year;
+                })
+
+
             });
-    }
+
+
+    },
+   
 })

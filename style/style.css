@@ -3,9 +3,11 @@
     margin: 0;
     box-sizing: border-box;
   }
+ 
   
   body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Open Sans", sans-serif;
+
   }
   
   #app {
@@ -28,6 +30,7 @@
     width: calc(100% / 3);
     padding: 14px;
     text-align: center;
+    
   }
   
   .album img {
@@ -37,3 +40,14 @@
     object-fit: cover;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   }
+
+  #app h1 > select {
+    padding: 2px;
+    border-radius: 15px;
+    vertical-align: middle;
+  }
+  
+  #app h1 > select:focus {
+    outline: none;
+  }
+  

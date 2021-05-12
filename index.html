@@ -7,31 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue Music Discs</title>
 
-    <link rel="stylesheet" href="css/styles.css">
+ 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body>
-    <!-- 
-            Utilizzando vue, stampiamo a schermo una card per ogni album.
-            - Se array è vuoto?
-                - Sarà vuoto all'avvio di vue finchè la chiamata ajax non sarà completata
-                - Dobbiamo in qualche modo informare l'utente che i dati sono in caricamento
-                    - Potremmo mostrare un messaggio di testo? O un loading spinner?
-                    - Tramite un v-if, Se array è vuoto -> mostro testo attendi, altrimenti mostro 
-                        lista album
-            - Album -> in un array di vue?
-            - v-for  
-                - dovrò scrivere del html per ogni album
-                    - nell'html, per ogni album dovremo mostrare la copertina, 
-                        poi il titolo album, anno e se vogliamo l'artista
-         -->
+    
 
     <div id="app">
 
         <h1>
             My albums
+
 
             <!-- 
                 Creare una select con tutti i generi dei dischi. 
@@ -47,81 +43,35 @@
                     - All'interno della funzione, eseguo il filter sui dati e li salvo 
                         in una nuova variabile
             -->
-            <select name="" id="" @change="onSelectChange"></select>
+            <select  name="" id="" v-model="input">
+               <option value="all">All</option>
+                <option  v-for="genere in getGeneresList" :value="genere">
+                    {{genere}}
+                </option>
+
+            </select>
         </h1>
+        
+        <div>
 
-        <div class="albums-container">
-            <div class="album">
-                <!-- copertina -->
-                <img src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg">
-
-                <!-- Titolo album -->
-                <h3>Titol album</h3>
-
-                <!-- Nome Artista -->
-                <h4>Nome artista</h4>
-
-                <!-- Anno album -->
-                <span>2021</span>
+            <div  class="albums-container" >
+                <div class="album" v-for="card in genereFiltered" >
+                    <!-- copertina -->
+                    <img :src="card.poster">
+    
+                    <!-- Titolo album -->
+                    <h3>{{card.title}}</h3>
+    
+                    <!-- Nome Artista -->
+                    <h4>{{card.author}}</h4>
+    
+                    <!-- Anno album -->
+                    <span>{{card.year}}</span>
+                </div>
             </div>
-
-            <div class="album">
-                <!-- copertina -->
-                <img src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg">
-
-                <!-- Titolo album -->
-                <h3>Titol album</h3>
-
-                <!-- Nome Artista -->
-                <h4>Nome artista</h4>
-
-                <!-- Anno album -->
-                <span>2021</span>
-            </div>
-
-            <div class="album">
-                <!-- copertina -->
-                <img src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg">
-
-                <!-- Titolo album -->
-                <h3>Titol album</h3>
-
-                <!-- Nome Artista -->
-                <h4>Nome artista</h4>
-
-                <!-- Anno album -->
-                <span>2021</span>
-            </div>
-
-            <div class="album">
-                <!-- copertina -->
-                <img src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg">
-
-                <!-- Titolo album -->
-                <h3>Titol album</h3>
-
-                <!-- Nome Artista -->
-                <h4>Nome artista</h4>
-
-                <!-- Anno album -->
-                <span>2021</span>
-            </div>
-
-            <div class="album">
-                <!-- copertina -->
-                <img src="https://www.onstageweb.com/wp-content/uploads/2018/09/bon-jovi-new-jersey.jpg">
-
-                <!-- Titolo album -->
-                <h3>Titol album</h3>
-
-                <!-- Nome Artista -->
-                <h4>Nome artista</h4>
-
-                <!-- Anno album -->
-                <span>2021</span>
-            </div>
-
         </div>
+
+            
 
 
     </div>
